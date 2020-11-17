@@ -72,11 +72,16 @@ class App extends Component {
         data: { quoteObj, showButtonBool },
       })
       .then((response) => {
-        console.log(response.data);
-        console.log('Quote Has Been Deleted');
+        console.log(response.data.remainingQuotes);
         this.setState({
-          faves: response.data,
+          faves: response.data.remainingQuotes,
         });
+
+        if (response.data.mainList) {
+          this.setState({
+            showButton: false,
+          });
+        }
       });
   }
 

@@ -12,7 +12,9 @@ app.delete('/delete', (req, res) => {
   const quoteObj = req.body;
   return deleteQuote(quoteObj)
     .then((remainingQuotes) => {
-      res.send(remainingQuotes);
+      console.log('----', quoteObj);
+
+      res.send({ remainingQuotes });
     })
     .catch((err) => {
       console.log('Error Deleting Quote');

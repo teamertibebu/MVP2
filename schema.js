@@ -42,7 +42,6 @@ let deleteQuote = (quoteObj, cb) => {
       cb(err);
     } else {
       console.log('Successfully Deleted Quote');
-      // if (showButtonBool) {
       Quote.find({ charId: quoteObj.charId }, (err, quotes) => {
         if (err) {
           cb(err);
@@ -59,7 +58,6 @@ let deleteQuote = (quoteObj, cb) => {
         }
       });
     }
-    // }
   });
 };
 
