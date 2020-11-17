@@ -4,11 +4,20 @@ const app = express();
 const cors = require('cors');
 const axios = require('axios');
 const { apiKey } = require('./config');
-const { saveQuote, getFaves } = require('./schema.js');
+const { saveQuote, getFaves, showByUser } = require('./schema.js');
 app.use(express.json());
 app.use(cors());
 
 // app.get('/', (req, res) => {});
+app.post('/showByUser', (req, res) => {
+  showByUser(req.body.user)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
 
 app.post('/save', (req, res) => {
   const quoteObj = req.body.data;

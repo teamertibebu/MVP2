@@ -12,16 +12,17 @@ class App extends Component {
     this.state = {
       randomQuote: '',
       faves: [],
+      showButton: false,
     };
 
-    // this.handleChange = this.handleChange.bind(this);
+    this.showByUser = this.showByUser.bind(this);
     this.searchRandom = this.searchRandom.bind(this);
     this.saveQuote = this.saveQuote.bind(this);
+    this.showAllFaves = this.showAllFaves.bind(this);
   }
 
   componentDidMount() {
     axios.post('http://localhost:8080/').then((response) => {
-      console.log(response.data);
       this.setState({
         randomQuote: response.data,
         faves: response.data.faves,
@@ -47,11 +48,36 @@ class App extends Component {
     axios
       .post('http://localhost:8080/save', { data: data })
       .then((response) => {
-        console.log('hahaha', response);
         this.setState({
           faves: response.data,
         });
-        console.log(this.state.faves, 'sjjsjsjsjsjsjs');
+      });
+  }
+
+  showAllFaves() {
+    axios.post('http://localhost:8080/').then((response) => {
+      this.setState({
+        faves: response.data.faves,
+      });
+    });
+    this.setState({
+      showButton: false,
+    });
+  }
+
+  showByUser(user) {
+    this.setState({
+      showButton: true,
+    });
+    axios
+      .post('http://localhost:8080/showByUser', { user: user })
+      .then((response) => {
+        this.setState({
+          faves: response.data,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
@@ -71,9 +97,14 @@ class App extends Component {
         <QuoteData
           randomQuote={this.state.randomQuote}
           saveQuote={this.saveQuote}
+          showButton={this.state.showButton}
+          showAllFaves={this.showAllFaves}
         />
         {this.state.faves.length > 0 ? (
-          <FaveQuotesList faves={this.state.faves} />
+          <FaveQuotesList
+            faves={this.state.faves}
+            showByUser={this.showByUser}
+          />
         ) : (
           ''
         )}

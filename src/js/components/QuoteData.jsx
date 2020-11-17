@@ -1,6 +1,6 @@
 const React = require('react');
 
-const QuoteData = ({ randomQuote, saveQuote }) => {
+const QuoteData = ({ randomQuote, saveQuote, showButton, showAllFaves }) => {
   const data = randomQuote.data;
   if (!data) {
     return <div></div>;
@@ -10,6 +10,9 @@ const QuoteData = ({ randomQuote, saveQuote }) => {
       <h3>{data.character.firstname + ' ' + data.character.lastname}</h3>
       <p>{data.content}</p>
       <button onClick={saveQuote.bind(this, data)}>Save Quote</button>
+      {showButton === true ? (
+        <button onClick={showAllFaves.bind(this)}>Show All Faves</button>
+      ) : null}
     </div>
   );
 };

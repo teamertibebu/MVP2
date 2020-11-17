@@ -22,6 +22,16 @@ const favQuotesSchema = mongoose.Schema({
 
 const Quote = mongoose.model('quotes', favQuotesSchema, 'quotes');
 
+let showByUser = (character, cb) => {
+  return Quote.find({ character: character.character })
+    .then((data) => {
+      return cb(null, data);
+    })
+    .catch((err) => {
+      return cb(err);
+    });
+};
+
 let saveQuote = (quote, callback) => {
   Quote.count({ _id: quote._id }, (err, count) => {
     if (err) {
@@ -56,8 +66,10 @@ let getFaves = (cb) => {
 
 saveQuote = promisify(saveQuote);
 getFaves = promisify(getFaves);
+showByUser = promisify(showByUser);
 
 module.exports = {
   saveQuote,
   getFaves,
+  showByUser,
 };
