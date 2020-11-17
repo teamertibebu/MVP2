@@ -33,19 +33,32 @@ let showByUser = (character, cb) => {
 };
 
 let deleteQuote = (quoteObj, cb) => {
+  console.log(quoteObj);
+  let showButtonBool = quoteObj.showButtonBool;
   quoteObj = quoteObj.quoteObj;
+  console.log(showButtonBool);
   Quote.deleteOne({ _id: quoteObj._id }, (err, success) => {
     if (err) {
       cb(err);
     } else {
       console.log('Successfully Deleted Quote');
-      Quote.find({ charId: quoteObj.charId }, (err, quotes) => {
-        if (err) {
-          cb(err);
-        } else {
-          cb(null, quotes);
-        }
-      });
+      if (showButtonBool) {
+        Quote.find({ charId: quoteObj.charId }, (err, quotes) => {
+          if (err) {
+            cb(err);
+          } else {
+            cb(null, quotes);
+          }
+        });
+      } else {
+        Quote.find({}, (err, quotes) => {
+          if (err) {
+            cb(err);
+          } else {
+            cb(null, quotes);
+          }
+        });
+      }
     }
   });
 };

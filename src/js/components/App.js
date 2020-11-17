@@ -62,9 +62,10 @@ class App extends Component {
   }
 
   deleteFromFaves(quoteObj) {
+    let showButtonBool = this.state.showButton;
     axios
       .delete('http://localhost:8080/delete', {
-        data: { quoteObj },
+        data: { quoteObj, showButtonBool },
       })
       .then((response) => {
         console.log(response.data);
