@@ -42,24 +42,24 @@ let deleteQuote = (quoteObj, cb) => {
       cb(err);
     } else {
       console.log('Successfully Deleted Quote');
-      if (showButtonBool) {
-        Quote.find({ charId: quoteObj.charId }, (err, quotes) => {
-          if (err) {
-            cb(err);
-          } else if (quotes.length === 0) {
-            Quote.find({}, (err, quotes) => {
-              if (err) {
-                cb(err);
-              } else {
-                cb(null, quotes);
-              }
-            });
-          } else {
-            cb(null, quotes);
-          }
-        });
-      }
+      // if (showButtonBool) {
+      Quote.find({ charId: quoteObj.charId }, (err, quotes) => {
+        if (err) {
+          cb(err);
+        } else if (quotes.length === 0) {
+          Quote.find({}, (err, quotes) => {
+            if (err) {
+              cb(err);
+            } else {
+              cb(null, quotes);
+            }
+          });
+        } else {
+          cb(null, quotes);
+        }
+      });
     }
+    // }
   });
 };
 
