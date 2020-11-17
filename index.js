@@ -10,10 +10,14 @@ app.use(cors());
 
 app.delete('/delete', (req, res) => {
   const quoteObj = req.body;
+  const name = quoteObj.quoteObj.character;
+  console.log('hehehehehehehe', name);
   return deleteQuote(quoteObj)
     .then((remainingQuotes) => {
-      console.log('----', quoteObj);
-
+      console.log('----', remainingQuotes[0]);
+      if (remainingQuotes.length && name !== remainingQuotes[0].character) {
+        return res.send({ remainingQuotes, mainList: true });
+      }
       res.send({ remainingQuotes });
     })
     .catch((err) => {

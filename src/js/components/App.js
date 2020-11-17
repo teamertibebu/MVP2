@@ -72,7 +72,6 @@ class App extends Component {
         data: { quoteObj, showButtonBool },
       })
       .then((response) => {
-        console.log(response.data.remainingQuotes);
         this.setState({
           faves: response.data.remainingQuotes,
         });
@@ -80,6 +79,7 @@ class App extends Component {
         if (response.data.mainList) {
           this.setState({
             showButton: false,
+            character: '',
           });
         }
       });
