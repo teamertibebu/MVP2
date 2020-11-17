@@ -39,7 +39,7 @@ let deleteQuote = (quoteObj, cb) => {
       cb(err);
     } else {
       console.log('Successfully Deleted Quote');
-      Quote.find({}, (err, quotes) => {
+      Quote.find({ charId: quoteObj.charId }, (err, quotes) => {
         if (err) {
           cb(err);
         } else {
