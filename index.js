@@ -4,11 +4,21 @@ const app = express();
 const cors = require('cors');
 const axios = require('axios');
 const { apiKey } = require('./config');
-const { saveQuote, getFaves, showByUser } = require('./schema.js');
+const { saveQuote, getFaves, showByUser, deleteQuote } = require('./schema.js');
 app.use(express.json());
 app.use(cors());
 
-// app.get('/', (req, res) => {});
+app.delete('/delete', (req, res) => {
+  const quoteObj = req.body;
+  return deleteQuote(quoteObj)
+    .then((remainingQuotes) => {
+      res.send(remainingQuotes);
+    })
+    .catch((err) => {
+      console.log('Error Deleting Quote');
+      res.send();
+    });
+});
 app.post('/showByUser', (req, res) => {
   showByUser(req.body.user)
     .then((data) => {

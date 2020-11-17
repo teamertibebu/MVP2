@@ -32,6 +32,24 @@ let showByUser = (character, cb) => {
     });
 };
 
+let deleteQuote = (quoteObj, cb) => {
+  quoteObj = quoteObj.quoteObj;
+  Quote.deleteOne({ _id: quoteObj._id }, (err, success) => {
+    if (err) {
+      cb(err);
+    } else {
+      console.log('Successfully Deleted Quote');
+      Quote.find({}, (err, quotes) => {
+        if (err) {
+          cb(err);
+        } else {
+          cb(null, quotes);
+        }
+      });
+    }
+  });
+};
+
 let saveQuote = (quote, callback) => {
   Quote.count({ _id: quote._id }, (err, count) => {
     if (err) {
@@ -67,9 +85,11 @@ let getFaves = (cb) => {
 saveQuote = promisify(saveQuote);
 getFaves = promisify(getFaves);
 showByUser = promisify(showByUser);
+deleteQuote = promisify(deleteQuote);
 
 module.exports = {
   saveQuote,
   getFaves,
   showByUser,
+  deleteQuote,
 };

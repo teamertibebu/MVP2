@@ -19,6 +19,7 @@ class App extends Component {
     this.searchRandom = this.searchRandom.bind(this);
     this.saveQuote = this.saveQuote.bind(this);
     this.showAllFaves = this.showAllFaves.bind(this);
+    this.deleteFromFaves = this.deleteFromFaves.bind(this);
   }
 
   componentDidMount() {
@@ -54,6 +55,20 @@ class App extends Component {
     axios
       .post('http://localhost:8080/save', { data: data })
       .then((response) => {
+        this.setState({
+          faves: response.data,
+        });
+      });
+  }
+
+  deleteFromFaves(quoteObj) {
+    axios
+      .delete('http://localhost:8080/delete', {
+        data: { quoteObj },
+      })
+      .then((response) => {
+        console.log(response.data);
+        console.log('Quote Has Been Deleted');
         this.setState({
           faves: response.data,
         });
@@ -110,6 +125,7 @@ class App extends Component {
           <FaveQuotesList
             faves={this.state.faves}
             showByUser={this.showByUser}
+            deleteFromFaves={this.deleteFromFaves}
           />
         ) : (
           ''

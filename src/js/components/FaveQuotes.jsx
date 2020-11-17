@@ -1,14 +1,17 @@
 const React = require('react');
 
-const FaveQuotesList = ({ faves, showByUser }) => {
+const FaveQuotesList = ({ faves, showByUser, deleteFromFaves }) => {
   return (
     <div className="faves">
       <h4>All Time Faves</h4>
       <ol>
         {faves.map((fave, i) => {
           return (
-            <div key={i + fave.character} onClick={showByUser.bind(this, fave)}>
-              <h1 style={{ marginBottom: '-10px', color: 'firebrick' }}>
+            <div key={i + fave.character}>
+              <h1
+                onClick={showByUser.bind(this, fave)}
+                style={{ marginBottom: '-10px', color: 'firebrick' }}
+              >
                 {fave.character}
               </h1>
               <li
@@ -19,7 +22,20 @@ const FaveQuotesList = ({ faves, showByUser }) => {
                   boxShadow: '5px 4px lightgrey',
                   borderRadius: '8px',
                 }}
-              >{`${fave.quote}`}</li>
+              >
+                {`${fave.quote}`}
+              </li>
+              <button
+                onClick={deleteFromFaves.bind(this, fave)}
+                style={{
+                  backgroundColor: 'firebrick',
+                  borderRadius: '4px',
+                  marginTop: '9px',
+                  float: 'right',
+                }}
+              >
+                Delete From Faves
+              </button>
             </div>
           );
         })}
