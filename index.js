@@ -10,7 +10,7 @@ app.use(cors());
 // app.get('/', (req, res) => {});
 
 app.post('/save', (req, res) => {
-  console.log(req.body);
+  console.log(req.body, '_________________________');
 });
 app.post('/', (req, res) => {
   const URL = 'https://officeapi.dev/api/quotes/random';

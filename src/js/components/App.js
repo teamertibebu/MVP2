@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Search from './Search.jsx';
-import RandomQuote from './RandomQuote.jsx';
+import RandomSearch from './RandomSearch.jsx';
+import QuoteData from './QuoteData.jsx';
 import axios from 'axios';
+// import RandomSearch from './RandomSearch.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -13,25 +14,25 @@ class App extends Component {
     };
 
     // this.handleChange = this.handleChange.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
+    this.searchRandom = this.searchRandom.bind(this);
     this.saveQuote = this.saveQuote.bind(this);
   }
 
   componentDidMount() {
-    axios.post('http://localhost:8080/').then((response) => {
-      this.setState({
-        randomQuote: response.data,
-      });
-    });
+    // axios.post('http://localhost:8080/').then((response) => {
+    //   this.setState({
+    //     randomQuote: response.data,
+    //   });
+    // });
   }
 
-  // componentDidUpdate(prevProp, prevState) {
-  //   if (prevState.randomQuote !== this.state.randomQuote) {
-  //     this.setState({
-  //       randomQuote: this.state.randomQuote,
-  //     });
-  //   }
-  // }
+  componentDidUpdate(prevProp, prevState) {
+    if (prevState.randomQuote !== this.state.randomQuote) {
+      this.setState({
+        randomQuote: this.state.randomQuote,
+      });
+    }
+  }
 
   saveQuote(data) {
     console.log('innnnnn', data);
@@ -42,24 +43,20 @@ class App extends Component {
       });
   }
 
-  handleSearch(character) {
-    axios
-      .post('http://localhost:8080/', {
-        character,
-      })
-      .then((response) => {
-        this.setState({
-          randomQuote: response.data,
-        });
+  searchRandom() {
+    axios.post('http://localhost:8080/').then((response) => {
+      this.setState({
+        randomQuote: response.data,
       });
+    });
   }
 
   render() {
     return (
       <div>
         <h1>The Office Random Quote Generator</h1>
-        <Search onSearch={this.handleSearch} />
-        <RandomQuote
+        <RandomSearch onSearch={this.searchRandom} />
+        <QuoteData
           randomQuote={this.state.randomQuote}
           saveQuote={this.saveQuote}
         />

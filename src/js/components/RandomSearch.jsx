@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Search extends React.Component {
+class RandomSearch extends React.Component {
   constructor(props) {
     super(props);
 
@@ -8,22 +8,22 @@ class Search extends React.Component {
       character: '',
     };
     this.handleChange = this.handleChange.bind(this);
-    this.searchRandom = this.searchByChar.bind(this);
-    this.searchByChar = this.searchByChar.bind(this);
+    this.searchRandom = this.searchRandom.bind(this);
+    // this.searchByChar = this.searchByChar.bind(this);
   }
 
   handleChange(e) {
-    this.setState({
-      character: e.target.value,
-    });
+    // this.setState({
+    //   character: e.target.value,
+    // });
+    // console.log(this.state.character);
   }
 
-  searchRandom() {}
+  // searchRandom() {}
 
-  searchByChar() {
+  searchRandom() {
     const { onSearch } = this.props;
-    const { character } = this.state;
-    onSearch(character);
+    onSearch();
   }
 
   render() {
@@ -39,4 +39,4 @@ class Search extends React.Component {
   }
 }
 
-export default Search;
+export default RandomSearch;
