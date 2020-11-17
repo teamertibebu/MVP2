@@ -1,50 +1,55 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Search from './Search.jsx';
+import RandomQuote from './RandomQuote.jsx';
 import axios from 'axios';
-import VideoListEntry from './VideoListEntry.jsx';
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      value: '',
-      videos: [],
+      randomQuote: '',
     };
 
     // this.handleChange = this.handleChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.saveQuote = this.saveQuote.bind(this);
   }
 
-  componentDidUpdate(prevProp, prevState) {
-    if (prevState.videos !== this.state.videos) {
-      console.log('prev', prevState.videos);
-      console.log('now', this.state.videos);
+  componentDidMount() {
+    axios.post('http://localhost:8080/').then((response) => {
       this.setState({
-        videos: this.state.videos,
+        randomQuote: response.data,
       });
-    }
+    });
   }
 
-  // handleChange(event) {
-  //   const { value } = event.target;
-  //   this.setState(() => {
-  //     return {
-  //       videos,
-  //     };
-  //   });
+  // componentDidUpdate(prevProp, prevState) {
+  //   if (prevState.randomQuote !== this.state.randomQuote) {
+  //     this.setState({
+  //       randomQuote: this.state.randomQuote,
+  //     });
+  //   }
   // }
 
-  handleSearch(showTitle) {
+  saveQuote(data) {
+    console.log('innnnnn', data);
+    axios
+      .post('http://localhost:8080/save', { data: data })
+      .then((response) => {
+        console.log('axios');
+      });
+  }
+
+  handleSearch(character) {
     axios
       .post('http://localhost:8080/', {
-        showTitle,
+        character,
       })
       .then((response) => {
-        console.log('hello', response.data);
         this.setState({
-          videos: response.data,
+          randomQuote: response.data,
         });
       });
   }
@@ -52,9 +57,12 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1>Scenes From the Dead</h1>
+        <h1>The Office Random Quote Generator</h1>
         <Search onSearch={this.handleSearch} />
-        <VideoListEntry videos={this.state.videos} />
+        <RandomQuote
+          randomQuote={this.state.randomQuote}
+          saveQuote={this.saveQuote}
+        />
       </div>
     );
   }

@@ -7,16 +7,18 @@ const { apiKey } = require('./config');
 app.use(express.json());
 app.use(cors());
 
-app.get('/', (req, res) => {});
+// app.get('/', (req, res) => {});
+
+app.post('/save', (req, res) => {
+  console.log(req.body);
+});
 app.post('/', (req, res) => {
-  const query = req.body.showTitle + 'deletedscenes';
-  console.log(query);
-  const URL = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyC7kvwZKyLjxGDmexve29WSaybKEPc42gg&type=video&part=snippet&maxResults=10&q=${query}`;
+  const URL = 'https://officeapi.dev/api/quotes/random';
 
   axios
     .get(URL)
     .then((response) => {
-      res.send(response.data.items);
+      res.send(response.data);
     })
     .catch((err) => {
       console.log(err);

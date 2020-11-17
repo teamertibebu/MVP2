@@ -5,34 +5,34 @@ class Search extends React.Component {
     super(props);
 
     this.state = {
-      showTitle: '',
+      character: '',
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.searchRandom = this.searchByChar.bind(this);
+    this.searchByChar = this.searchByChar.bind(this);
   }
 
   handleChange(e) {
     this.setState({
-      showTitle: e.target.value,
+      character: e.target.value,
     });
   }
 
-  handleClick() {
-    const { onSearch } = this.props;
-    const { showTitle } = this.state;
+  searchRandom() {}
 
-    onSearch(showTitle);
+  searchByChar() {
+    const { onSearch } = this.props;
+    const { character } = this.state;
+    onSearch(character);
   }
 
   render() {
-    const { showTitle } = this.state;
-    // console.log(showTitle);
+    const { character } = this.state;
 
     return (
       <div>
-        <input value={showTitle} onChange={this.handleChange} />
-        <button onClick={this.handleClick} type="button">
-          Search Deleted Scenes
+        <button onClick={this.searchRandom} type="button">
+          Search Random Quote
         </button>
       </div>
     );
