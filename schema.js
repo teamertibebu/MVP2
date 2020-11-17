@@ -46,14 +46,14 @@ let deleteQuote = (quoteObj, cb) => {
         Quote.find({ charId: quoteObj.charId }, (err, quotes) => {
           if (err) {
             cb(err);
-          } else {
-            cb(null, quotes);
-          }
-        });
-      } else {
-        Quote.find({}, (err, quotes) => {
-          if (err) {
-            cb(err);
+          } else if (quotes.length === 0) {
+            Quote.find({}, (err, quotes) => {
+              if (err) {
+                cb(err);
+              } else {
+                cb(null, quotes);
+              }
+            });
           } else {
             cb(null, quotes);
           }
