@@ -28,7 +28,14 @@ app.post('/', (req, res) => {
   axios
     .get(URL)
     .then((response) => {
-      res.send(response.data);
+      getFaves()
+        .then((data) => {
+          response.data['faves'] = data;
+          res.send(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     })
     .catch((err) => {
       console.log(err);

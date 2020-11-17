@@ -20,11 +20,13 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // axios.post('http://localhost:8080/').then((response) => {
-    //   this.setState({
-    //     randomQuote: response.data,
-    //   });
-    // });
+    axios.post('http://localhost:8080/').then((response) => {
+      console.log(response.data);
+      this.setState({
+        randomQuote: response.data,
+        faves: response.data.faves,
+      });
+    });
   }
 
   componentDidUpdate(prevProp, prevState) {
