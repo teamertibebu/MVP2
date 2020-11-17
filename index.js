@@ -4,16 +4,23 @@ const app = express();
 const cors = require('cors');
 const axios = require('axios');
 const { apiKey } = require('./config');
-const { saveQuote } = require('./schema.js');
+const { saveQuote, getFaves } = require('./schema.js');
 app.use(express.json());
 app.use(cors());
 
 // app.get('/', (req, res) => {});
 
 app.post('/save', (req, res) => {
-  console.log(req.body, '_________________________');
   const quoteObj = req.body.data;
-  saveQuote(quoteObj);
+  saveQuote(quoteObj).then(() => {
+    return getFaves((err, quotes) => {
+      if (err) {
+        res.send();
+      } else {
+        res.send(quotes);
+      }
+    });
+  });
 });
 app.post('/', (req, res) => {
   const URL = 'https://officeapi.dev/api/quotes/random';

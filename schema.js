@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const { promisify } = require('util');
+const { call } = require('when/node');
 
 const DATABASE = 'favQuotes';
 const DB_URI = `mongodb://localhost:27017/${DATABASE}`;
@@ -9,8 +11,8 @@ mongoose
   })
   .then(() => console.log('Connected to database'))
   .catch((err) => console.error('Failed to connect to database', err));
-const db = mongoose.connection;
-
+const db = mongoose.connections;
+// console.log(db);
 const favQuotesSchema = mongoose.Schema({
   _id: String,
   quote: String,
@@ -20,12 +22,10 @@ const favQuotesSchema = mongoose.Schema({
 
 const Quote = mongoose.model('quotes', favQuotesSchema, 'quotes');
 
-const saveQuote = (quote) => {
+let saveQuote = (quote, callback) => {
   Quote.count({ _id: quote._id }, (err, count) => {
-    console.log(count, '!!!!!');
     if (err) {
-      console.log(err);
-      return;
+      return callback(err);
     }
     if (count === 0) {
       const newQuote = new Quote({
@@ -36,13 +36,28 @@ const saveQuote = (quote) => {
       });
       Quote.create(newQuote, (err, quote) => {
         if (err) {
-          console.log(err);
-          return;
+          return callback(err);
         }
-        return quote;
+        callback(null, quote);
       });
     }
   });
 };
 
-module.exports.saveQuote = saveQuote;
+let getFaves = (cb) => {
+  return Quote.find()
+    .then((quotes) => {
+      return cb(null, quotes);
+    })
+    .catch((err) => {
+      return cb(err);
+    });
+};
+
+saveQuote = promisify(saveQuote);
+getFaves = promisify(getFaves);
+
+module.exports = {
+  saveQuote,
+  getFaves,
+};

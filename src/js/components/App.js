@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import RandomSearch from './RandomSearch.jsx';
+import { FaveQuotesList } from './FaveQuotes.jsx';
 import QuoteData from './QuoteData.jsx';
 import axios from 'axios';
-// import RandomSearch from './RandomSearch.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -11,6 +11,7 @@ class App extends Component {
 
     this.state = {
       randomQuote: '',
+      faves: [],
     };
 
     // this.handleChange = this.handleChange.bind(this);
@@ -31,6 +32,12 @@ class App extends Component {
       this.setState({
         randomQuote: this.state.randomQuote,
       });
+
+      if (prevState.faves.length !== this.state.faves.length) {
+        this.setState({
+          faves: this.state.faves,
+        });
+      }
     }
   }
 
@@ -38,7 +45,11 @@ class App extends Component {
     axios
       .post('http://localhost:8080/save', { data: data })
       .then((response) => {
-        console.log('axios');
+        console.log('hahaha', response);
+        this.setState({
+          faves: response.data,
+        });
+        console.log(this.state.faves, 'sjjsjsjsjsjsjs');
       });
   }
 
@@ -59,6 +70,11 @@ class App extends Component {
           randomQuote={this.state.randomQuote}
           saveQuote={this.saveQuote}
         />
+        {this.state.faves.length > 0 ? (
+          <FaveQuotesList faves={this.state.faves} />
+        ) : (
+          ''
+        )}
       </div>
     );
   }
