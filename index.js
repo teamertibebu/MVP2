@@ -4,6 +4,7 @@ const app = express();
 const cors = require('cors');
 const axios = require('axios');
 const { apiKey } = require('./config');
+const { saveQuote } = require('./schema.js');
 app.use(express.json());
 app.use(cors());
 
@@ -11,6 +12,8 @@ app.use(cors());
 
 app.post('/save', (req, res) => {
   console.log(req.body, '_________________________');
+  const quoteObj = req.body.data;
+  saveQuote(quoteObj);
 });
 app.post('/', (req, res) => {
   const URL = 'https://officeapi.dev/api/quotes/random';

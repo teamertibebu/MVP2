@@ -35,7 +35,6 @@ class App extends Component {
   }
 
   saveQuote(data) {
-    console.log('innnnnn', data);
     axios
       .post('http://localhost:8080/save', { data: data })
       .then((response) => {

@@ -15,10 +15,34 @@ const favQuotesSchema = mongoose.Schema({
   _id: String,
   quote: String,
   character: String,
+  charId: String,
 });
 
-const Quote = mongoose.model('repos', repoSchema, 'repos');
+const Quote = mongoose.model('quotes', favQuotesSchema, 'quotes');
 
 const saveQuote = (quote) => {
-  console.log('saveQuote', quote);
+  Quote.count({ _id: quote._id }, (err, count) => {
+    console.log(count, '!!!!!');
+    if (err) {
+      console.log(err);
+      return;
+    }
+    if (count === 0) {
+      const newQuote = new Quote({
+        _id: quote._id,
+        quote: quote.content,
+        character: `${quote.character.firstname} ${quote.character.lastname}`,
+        charId: quote.character._id,
+      });
+      Quote.create(newQuote, (err, quote) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        return quote;
+      });
+    }
+  });
 };
+
+module.exports.saveQuote = saveQuote;
