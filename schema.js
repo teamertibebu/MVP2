@@ -77,7 +77,7 @@ let saveQuote = (quote, callback) => {
       });
       Quote.create(newQuote, (err, quote) => {
         if (err) {
-          return callback(err);
+          callback(err);
         }
         callback(null, quote);
       });

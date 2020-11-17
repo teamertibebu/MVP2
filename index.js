@@ -31,14 +31,21 @@ app.post('/showByUser', (req, res) => {
 
 app.post('/save', (req, res) => {
   const quoteObj = req.body.data;
+  const showButtonBool = req.body.showButton;
+  console.log(quoteObj);
+
+  // const showButton = req.body.data.showButton;
+  // console.log(showButton);
   saveQuote(quoteObj).then(() => {
-    return getFaves((err, quotes) => {
-      if (err) {
-        res.send();
-      } else {
-        res.send(quotes);
-      }
-    });
+    if (!showButtonBool) {
+      return getFaves((err, quotes) => {
+        if (err) {
+          res.send();
+        } else {
+          res.send(quotes);
+        }
+      });
+    }
   });
 });
 app.post('/', (req, res) => {

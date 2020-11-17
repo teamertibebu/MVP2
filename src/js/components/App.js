@@ -53,7 +53,10 @@ class App extends Component {
       });
     }
     axios
-      .post('http://localhost:8080/save', { data: data })
+      .post('http://localhost:8080/save', {
+        data: data,
+        showButton: this.state.showButton,
+      })
       .then((response) => {
         this.setState({
           faves: response.data,
