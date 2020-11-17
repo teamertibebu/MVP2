@@ -45,6 +45,12 @@ class App extends Component {
   }
 
   saveQuote(data) {
+    if (this.state.showButton === true) {
+      this.setState({
+        showButton: !this.state.showButton,
+        faves: this.state.faves,
+      });
+    }
     axios
       .post('http://localhost:8080/save', { data: data })
       .then((response) => {
