@@ -32,10 +32,7 @@ app.post('/showByUser', (req, res) => {
 app.post('/save', (req, res) => {
   const quoteObj = req.body.data;
   const showButtonBool = req.body.showButton;
-  console.log(quoteObj);
 
-  // const showButton = req.body.data.showButton;
-  // console.log(showButton);
   saveQuote(quoteObj).then(() => {
     if (!showButtonBool) {
       return getFaves((err, quotes) => {

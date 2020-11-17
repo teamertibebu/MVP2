@@ -1,9 +1,9 @@
 const React = require('react');
 
-const FaveQuotesList = ({ faves, showByUser, deleteFromFaves }) => {
+const FaveQuotesList = ({ faves, showByUser, deleteFromFaves, character }) => {
   return (
     <div className="faves">
-      <h4>All Time Faves</h4>
+      <h4>All Time Faves{character.length > 0 ? ` - ${character}` : ''}</h4>
       <ol>
         {faves.map((fave, i) => {
           return (

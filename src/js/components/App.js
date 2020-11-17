@@ -13,6 +13,7 @@ class App extends Component {
       randomQuote: '',
       faves: [],
       showButton: false,
+      character: '',
     };
 
     this.showByUser = this.showByUser.bind(this);
@@ -80,6 +81,9 @@ class App extends Component {
   }
 
   showAllFaves() {
+    this.setState({
+      character: '',
+    });
     axios.post('http://localhost:8080/').then((response) => {
       this.setState({
         faves: response.data.faves,
@@ -93,6 +97,7 @@ class App extends Component {
   showByUser(user) {
     this.setState({
       showButton: true,
+      character: user.character,
     });
     axios
       .post('http://localhost:8080/showByUser', { user: user })
@@ -127,6 +132,7 @@ class App extends Component {
         />
         {this.state.faves.length > 0 ? (
           <FaveQuotesList
+            character={this.state.character}
             faves={this.state.faves}
             showByUser={this.showByUser}
             deleteFromFaves={this.deleteFromFaves}
