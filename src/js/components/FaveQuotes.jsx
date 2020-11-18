@@ -1,6 +1,12 @@
 const React = require('react');
 
-const FaveQuotesList = ({ faves, showByUser, deleteFromFaves, character }) => {
+const FaveQuotesList = ({
+  faves,
+  showByUser,
+  deleteFromFaves,
+  character,
+  count,
+}) => {
   return (
     <div className="faves">
       <h4>All Time Faves{character.length > 0 ? ` - ${character}` : ''}</h4>
@@ -28,6 +34,7 @@ const FaveQuotesList = ({ faves, showByUser, deleteFromFaves, character }) => {
               <button
                 onClick={deleteFromFaves.bind(this, fave)}
                 style={{
+                  cursor: 'pointer',
                   backgroundColor: 'firebrick',
                   borderRadius: '4px',
                   marginTop: '9px',

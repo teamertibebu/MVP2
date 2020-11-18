@@ -11,7 +11,6 @@ app.use(cors());
 app.delete('/delete', (req, res) => {
   const quoteObj = req.body;
   const name = quoteObj.quoteObj.character;
-  console.log('hehehehehehehe', name);
   return deleteQuote(quoteObj)
     .then((remainingQuotes) => {
       console.log('----', remainingQuotes[0]);

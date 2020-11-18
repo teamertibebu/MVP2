@@ -4,6 +4,7 @@ import RandomSearch from './RandomSearch.jsx';
 import { FaveQuotesList } from './FaveQuotes.jsx';
 import QuoteData from './QuoteData.jsx';
 import axios from 'axios';
+import FavesCount from './FavesCount.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -13,7 +14,9 @@ class App extends Component {
       randomQuote: '',
       faves: [],
       showButton: false,
+      showSaveButton: true,
       character: '',
+      count: 0,
     };
 
     this.showByUser = this.showByUser.bind(this);
@@ -36,6 +39,7 @@ class App extends Component {
     if (prevState.randomQuote !== this.state.randomQuote) {
       this.setState({
         randomQuote: this.state.randomQuote,
+        count: this.state.faves.length,
       });
 
       if (prevState.faves.length !== this.state.faves.length) {
@@ -49,7 +53,7 @@ class App extends Component {
   saveQuote(data) {
     if (this.state.showButton === true) {
       this.setState({
-        showButton: !this.state.showButton,
+        // showButton: !this.state.showButton,
         faves: this.state.faves,
       });
     }
@@ -59,14 +63,20 @@ class App extends Component {
         showButton: this.state.showButton,
       })
       .then((response) => {
+        let count = ++this.state.count;
+        console.log(count);
+
         this.setState({
           faves: response.data,
+          count: count,
         });
       });
   }
 
   deleteFromFaves(quoteObj) {
     let showButtonBool = this.state.showButton;
+    let count = --this.state.count;
+
     axios
       .delete('http://localhost:8080/delete', {
         data: { quoteObj, showButtonBool },
@@ -74,12 +84,17 @@ class App extends Component {
       .then((response) => {
         this.setState({
           faves: response.data.remainingQuotes,
+          count: count,
+          showSaveButton: true,
+          showButton: false,
         });
 
         if (response.data.mainList) {
           this.setState({
             showButton: false,
             character: '',
+            count: count,
+            showSaveButton: true,
           });
         }
       });
@@ -88,6 +103,7 @@ class App extends Component {
   showAllFaves() {
     this.setState({
       character: '',
+      showSaveButton: true,
     });
     axios.post('http://localhost:8080/').then((response) => {
       this.setState({
@@ -96,6 +112,7 @@ class App extends Component {
     });
     this.setState({
       showButton: false,
+      showSaveButton: true,
     });
   }
 
@@ -103,12 +120,14 @@ class App extends Component {
     this.setState({
       showButton: true,
       character: user.character,
+      showSaveButton: false,
     });
     axios
       .post('http://localhost:8080/showByUser', { user: user })
       .then((response) => {
         this.setState({
           faves: response.data,
+          showSaveButton: false,
         });
       })
       .catch((err) => {
@@ -128,19 +147,25 @@ class App extends Component {
     return (
       <div>
         <h1>The Office Random Quote Generator</h1>
-        <RandomSearch onSearch={this.searchRandom} />
+        <RandomSearch
+          onSearch={this.searchRandom}
+          showSaveButton={this.state.showSaveButton}
+        />
         <QuoteData
+          showSaveButton={this.state.showSaveButton}
           randomQuote={this.state.randomQuote}
           saveQuote={this.saveQuote}
           showButton={this.state.showButton}
           showAllFaves={this.showAllFaves}
         />
+        <FavesCount count={this.state.count} />
         {this.state.faves.length > 0 ? (
           <FaveQuotesList
             character={this.state.character}
             faves={this.state.faves}
             showByUser={this.showByUser}
             deleteFromFaves={this.deleteFromFaves}
+            count={this.state.count}
           />
         ) : (
           ''

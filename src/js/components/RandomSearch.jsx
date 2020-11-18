@@ -7,19 +7,9 @@ class RandomSearch extends React.Component {
     this.state = {
       character: '',
     };
-    this.handleChange = this.handleChange.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
     this.searchRandom = this.searchRandom.bind(this);
-    // this.searchByChar = this.searchByChar.bind(this);
   }
-
-  handleChange(e) {
-    // this.setState({
-    //   character: e.target.value,
-    // });
-    // console.log(this.state.character);
-  }
-
-  // searchRandom() {}
 
   searchRandom() {
     const { onSearch } = this.props;
@@ -28,10 +18,14 @@ class RandomSearch extends React.Component {
 
   render() {
     const { character } = this.state;
-
+    console.log('here', this.props.showSaveButton);
     return (
       <div>
-        <button onClick={this.searchRandom} type="button">
+        <button
+          style={{ cursor: 'pointer' }}
+          onClick={this.searchRandom}
+          type="button"
+        >
           Search Random Quote
         </button>
       </div>
