@@ -21,8 +21,11 @@ const FaveQuotesList = ({
               <h1
                 onClick={showByUser.bind(this, fave)}
                 style={{
-                  marginBottom: '-10px',
+                  marginBottom: '-5px',
                   color: 'floralwhite',
+                  position: 'relative',
+                  left: '30px',
+                  cursor: 'pointer',
                 }}
               >
                 {fave.character}
@@ -34,25 +37,30 @@ const FaveQuotesList = ({
                   border: '2px solid lightgrey',
                   boxShadow: '2px 0 0px 3px lightgrey',
                   borderRadius: '6px',
-                  backgroundColor: 'gold',
-                  fontStyle: 'oblique',
-                  fontSize: '14px',
+                  backgroundColor: '#212738',
+                  color: 'whitesmoke',
+                  fontSize: '18px',
                   width: '50%',
                 }}
               >
                 {`${fave.quote}`}
+                <div>
+                  <button
+                    onClick={deleteFromFaves.bind(this, fave)}
+                    style={{
+                      backgroundColor: '#ff6542',
+                      fontSize: '20px',
+                      position: 'relative',
+                      left: '35%',
+                      top: '25px',
+                      borderRadius: '0.25em',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Delete From Faves
+                  </button>
+                </div>
               </li>
-              <button
-                onClick={deleteFromFaves.bind(this, fave)}
-                style={{
-                  cursor: 'pointer',
-                  backgroundColor: 'firebrick',
-                  borderRadius: '4px',
-                  marginTop: '9px',
-                }}
-              >
-                Delete From Faves
-              </button>
             </div>
           );
         })}

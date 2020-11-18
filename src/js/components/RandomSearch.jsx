@@ -1,4 +1,20 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const RandomSearchStyles = styled.div`
+  button {
+    cursor: pointer;
+    background-color: #ff6542;
+    font-size: 20px;
+    position: relative;
+    left: 35%;
+    top: 15px;
+    border-radius: 0.25em;
+    :hover {
+      background-color: ${(p) => p.color};
+    }
+  }
+`;
 
 class RandomSearch extends React.Component {
   constructor(props) {
@@ -19,15 +35,11 @@ class RandomSearch extends React.Component {
   render() {
     const { character } = this.state;
     return (
-      <div>
-        <button
-          style={{ cursor: 'pointer' }}
-          onClick={this.searchRandom}
-          type="button"
-        >
+      <RandomSearchStyles color={'gold'}>
+        <button onClick={this.searchRandom} type="button">
           Search Random Quote
         </button>
-      </div>
+      </RandomSearchStyles>
     );
   }
 }

@@ -12,14 +12,53 @@ const QuoteData = ({
     return <div></div>;
   }
   return (
-    <div style={{ backgroundColor: '#6A66A3' }}>
+    <div
+      style={{
+        padding: '10px',
+        paddingTop: '0px',
+        border: '2px solid lightgrey',
+        boxShadow: '2px 0 0px 3px lightgrey',
+        borderRadius: '6px',
+        backgroundColor: '#212738',
+        color: 'whitesmoke',
+        fontSize: '18px',
+        width: '80%',
+        marginLeft: '0',
+      }}
+    >
       <h3>{data.character.firstname + ' ' + data.character.lastname}</h3>
       <p>{data.content}</p>
       {showSaveButton ? (
-        <button onClick={saveQuote.bind(this, data)}>Save Quote</button>
+        <button
+          onClick={saveQuote.bind(this, data)}
+          style={{
+            backgroundColor: '#ff6542',
+            fontSize: '20px',
+            position: 'relative',
+            // left: '35%',
+            // top: '25px',
+            borderRadius: '0.25em',
+            cursor: 'pointer',
+          }}
+        >
+          Save Quote
+        </button>
       ) : null}
       {showButton === true ? (
-        <button onClick={showAllFaves.bind(this)}>Show All Faves</button>
+        <button
+          onClick={showAllFaves.bind(this)}
+          style={{
+            backgroundColor: '#ff6542',
+            fontSize: '20px',
+            position: 'relative',
+            // left: '35%',
+            // top: '25px',
+            borderRadius: '0.25em',
+            cursor: 'pointer',
+          }}
+        >
+          Show All Faves
+        </button>
       ) : null}
     </div>
   );

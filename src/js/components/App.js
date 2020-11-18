@@ -149,7 +149,8 @@ class App extends Component {
         style={{
           position: 'absolute',
           top: '0',
-          width: '100%',
+          left: '0',
+          right: '0',
         }}
       >
         <h1
