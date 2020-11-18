@@ -7,7 +7,7 @@ const RandomSearchStyles = styled.div`
     background-color: #ff6542;
     font-size: 20px;
     position: relative;
-    left: 35%;
+    left: 1%;
     top: 15px;
     border-radius: 0.25em;
     :hover {

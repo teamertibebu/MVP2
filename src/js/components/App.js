@@ -158,9 +158,10 @@ class App extends Component {
             margin: '0px 0px 10px 0px',
             padding: '30px',
             borderBottom: '5px solid black',
-            backgroundColor: '#5D576B',
+            backgroundColor: '#212738',
             color: '#F4F1BB',
-            fontStyle: 'italic',
+            color: 'whitesmoke',
+            textAlign: 'center',
           }}
         >
           The Office Random Quote Generator

@@ -35,8 +35,6 @@ const QuoteData = ({
             backgroundColor: '#ff6542',
             fontSize: '20px',
             position: 'relative',
-            // left: '35%',
-            // top: '25px',
             borderRadius: '0.25em',
             cursor: 'pointer',
           }}
