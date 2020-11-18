@@ -145,8 +145,25 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <h1>The Office Random Quote Generator</h1>
+      <div
+        style={{
+          position: 'absolute',
+          top: '0',
+          width: '100%',
+        }}
+      >
+        <h1
+          style={{
+            margin: '0px 0px 10px 0px',
+            padding: '30px',
+            borderBottom: '5px solid black',
+            backgroundColor: '#5D576B',
+            color: '#F4F1BB',
+            fontStyle: 'italic',
+          }}
+        >
+          The Office Random Quote Generator
+        </h1>
         <RandomSearch
           onSearch={this.searchRandom}
           showSaveButton={this.state.showSaveButton}

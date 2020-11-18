@@ -18,7 +18,6 @@ class RandomSearch extends React.Component {
 
   render() {
     const { character } = this.state;
-    console.log('here', this.props.showSaveButton);
     return (
       <div>
         <button

@@ -12,7 +12,7 @@ const QuoteData = ({
     return <div></div>;
   }
   return (
-    <div>
+    <div style={{ backgroundColor: '#6A66A3' }}>
       <h3>{data.character.firstname + ' ' + data.character.lastname}</h3>
       <p>{data.content}</p>
       {showSaveButton ? (

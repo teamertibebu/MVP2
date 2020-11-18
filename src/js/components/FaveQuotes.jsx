@@ -8,15 +8,22 @@ const FaveQuotesList = ({
   count,
 }) => {
   return (
-    <div className="faves">
+    <div>
       <h4>All Time Faves{character.length > 0 ? ` - ${character}` : ''}</h4>
-      <ol>
+      <ol
+        style={{
+          position: 'inline-block',
+        }}
+      >
         {faves.map((fave, i) => {
           return (
             <div key={i + fave.character}>
               <h1
                 onClick={showByUser.bind(this, fave)}
-                style={{ marginBottom: '-10px', color: 'firebrick' }}
+                style={{
+                  marginBottom: '-10px',
+                  color: 'floralwhite',
+                }}
               >
                 {fave.character}
               </h1>
@@ -24,9 +31,13 @@ const FaveQuotesList = ({
                 className="fave"
                 style={{
                   padding: '10px',
-                  border: '3px solid lightgrey',
-                  boxShadow: '5px 4px lightgrey',
-                  borderRadius: '8px',
+                  border: '2px solid lightgrey',
+                  boxShadow: '2px 0 0px 3px lightgrey',
+                  borderRadius: '6px',
+                  backgroundColor: 'gold',
+                  fontStyle: 'oblique',
+                  fontSize: '14px',
+                  width: '50%',
                 }}
               >
                 {`${fave.quote}`}
@@ -38,7 +49,6 @@ const FaveQuotesList = ({
                   backgroundColor: 'firebrick',
                   borderRadius: '4px',
                   marginTop: '9px',
-                  float: 'right',
                 }}
               >
                 Delete From Faves
