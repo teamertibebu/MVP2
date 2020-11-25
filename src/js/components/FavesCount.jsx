@@ -2,7 +2,11 @@ import React from 'react';
 
 const FavesCount = ({ count }) => {
   return (
-    <div>
+    <div
+      style={{
+        color: 'whitesmoke',
+      }}
+    >
       {count === 1 ? (
         <h1>You Have {count} Fave</h1>
       ) : (
